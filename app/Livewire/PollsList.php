@@ -19,7 +19,7 @@ class PollsList extends Component
     #[Computed]
     public function polls()
     {
-        return Poll::with('options')->latest()->paginate(10);
+        return Poll::with('options')->latest()->get();
     }
 
     protected function loadVotedStatus()
