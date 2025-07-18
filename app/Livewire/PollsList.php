@@ -4,18 +4,22 @@ namespace App\Livewire;
 
 use App\Models\Option;
 use App\Models\Poll;
-use Illuminate\Database\Eloquent\Collection;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 class PollsList extends Component
 {
-    public Collection $polls;
     public array $votedPolls = [];
 
     public function mount()
     {
-        $this->polls = Poll::with('options')->latest()->get();
         $this->loadVotedStatus();
+    }
+
+    #[Computed]
+    public function polls()
+    {
+        return Poll::with('options')->latest()->paginate(10);
     }
 
     protected function loadVotedStatus()
@@ -43,7 +47,7 @@ class PollsList extends Component
         $this->votedPolls[$pollId] = true;
 
         session()->put('votedPolls', $this->votedPolls);
-        $this->polls = Poll::with('options')->latest()->get();
+        $this->dispatch('$refresh');
     }
 
     public function render()

@@ -1,6 +1,6 @@
 <div>
     <div class="space-y-6">
-        @foreach ($this->polls as $poll)
+        @forelse ($this->polls as $poll)
             @php
                 $totalVotes = $poll->options->sum('votes');
                 $hasVoted = $this->hasVoted($poll->id);
@@ -51,6 +51,10 @@
                     @endif
                 </div>
             </div>
-        @endforeach
+        @empty
+            <div class="rounded-lg bg-white p-6 text-center shadow-md">
+                <p class="text-gray-500">Belum ada polling. Buat polling pertama Anda!</p>
+            </div>
+        @endforelse
     </div>
 </div>
