@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Option;
 use App\Models\Poll;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class PollsList extends Component
@@ -50,6 +51,7 @@ class PollsList extends Component
         $this->dispatch('$refresh');
     }
 
+    #[On('pollCreated')]
     public function render()
     {
         return view('livewire.polls-list');
