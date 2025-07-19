@@ -3,12 +3,15 @@
         <div class="rounded-lg bg-white p-6 shadow-md">
             <h2 class="mb-4 text-2xl font-semibold">Buat Poll Baru</h2>
 
-            {{-- Notifikasi Sukses --}}
-            <div class="relative mb-4 rounded border border-green-400 bg-green-100 px-4 py-3 text-green-700"
-                role="alert">
-                <strong class="font-bold">Sukses!</strong>
-                <span class="block sm:inline">Pesan sukses akan muncul di sini.</span>
-            </div>
+            @if (session('success'))
+                <div class="relative mb-4 rounded border border-green-400 bg-green-100 px-4 py-3 text-green-700"
+                    role="alert" x-show="show" x-init="setTimeout(() => show = false, 3000)"
+                    x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100"
+                    x-transition:leave-end="opacity-0" x-data="{ show: true }">
+                    <strong class="font-bold">Sukses!</strong>
+                    <span class="block sm:inline">{{ session('success') }}</span>
+                </div>
+            @endif
 
             <div class="mb-4">
                 <label class="block text-sm font-medium text-gray-700" for="title">Judul Poll</label>

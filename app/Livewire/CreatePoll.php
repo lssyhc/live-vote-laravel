@@ -56,6 +56,8 @@ class CreatePoll extends Component
                 collect($this->options)
                     ->map(fn($option) => ['name' => $option])
             );
+
+        session()->flash('success', 'Poll berhasil dibuat!');
         $this->reset(['title', 'options']);
         $this->dispatch('pollCreated');
     }
